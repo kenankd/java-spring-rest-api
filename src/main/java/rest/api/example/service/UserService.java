@@ -31,15 +31,27 @@ public class UserService {
         if(user.isEmpty()) return null;
         return user.get();
     }
-    public ResponseEntity<User> deleteUser(Integer id){
+    public boolean deleteUser(Integer id){
         Optional<User> user = userRepository.findById(id);
-        if(user.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if(user.isEmpty()) return false;
         try{
             userRepository.delete(user.get());
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+    /*public ResponseEntity<User> updateUser(Integer id,User newUser){
+        Optional<User> oldUser = userRepository.findById(id);
+        if(oldUser.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        try{
+            userRepository.
             return ResponseEntity.noContent().build();
         }
         catch(Exception e){
             return ResponseEntity.internalServerError().build();
         }
-    }
+    }*/
+
 }

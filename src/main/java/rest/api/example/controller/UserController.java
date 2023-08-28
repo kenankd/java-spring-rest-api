@@ -40,5 +40,29 @@ public class UserController {
         ApiResponse<User> response = new ApiResponse<>(true, "User found.", user);
         return ResponseEntity.ok(response);
     }
-
+    @PatchMapping("/updateUser/{id}")
+    public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable Integer id,@RequestBody User newUser){
+        User user = userService.getUserById(id);
+        if(user==null){
+            ApiResponse<User> response = new ApiResponse<>(false, "User not found.", null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+        try{
+            newUser.setId(user.getId());
+            saveUser(newUser);
+            ApiResponse<User> response = new ApiResponse<>(true, "User updated.", newUser);
+            return ResponseEntity.ok(response);
+        }catch(Exception e){
+            return ResponseEntity.internalServerError().body(new ApiResponse<User>(false,"Something went wrong, " + e.getMessage(),null));
+        }
+    }
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Integer id){
+        boolean success = userService.deleteUser(id);
+        if(!success){
+            ApiResponse<User> response = new ApiResponse<>(false, "User not found.", null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Succesfully deleted user from database");
+    }
 }
