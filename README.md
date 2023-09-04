@@ -24,7 +24,7 @@ This Java project, built using IntelliJ IDEA, implements a RESTful CRUD API with
    git clone https://github.com/kenankd/java-spring-rest-api.git
    cd your-repo
    Build and Run:
-  Open the project in IntelliJ IDEA or your preferred Java IDE.
+  -Open the project in IntelliJ IDEA or your preferred Java IDE.
   Configure your MySQL database settings in application.properties or application.yml.
   Build and run the project.
 2. **Usage:**
@@ -34,15 +34,15 @@ This Java project, built using IntelliJ IDEA, implements a RESTful CRUD API with
   Include the JWT token in the Authorization header of your requests to authorize and authenticate further actions.
   Access CRUD operations for the user entity based on your role (user or admin).
 ## Endpoints
-User Registration:
- POST /auth/register: Register a new user.
-Authentication:
- POST /auth/authenticate: Authenticate (login) and obtain a JWT token.
-User CRUD Operations (Role-based):
- GET /api/getUsers: Get all users (admin only).
-GET /api/getUser/{username}: Get a user by username.
-PATCH /api/updateUsername/{username}: Update a user based on given username.
-DELETE /api/deleteUser/{username}: Delete a user (admin only).
+-User Registration:
+ -POST /auth/register: Register a new user.
+-Authentication:
+- POST /auth/authenticate: Authenticate (login) and obtain a JWT token.
+-User CRUD Operations (Role-based):
+ -GET /api/getUsers: Get all users (admin only).
+-GET /api/getUser/{username}: Get a user by username.
+-PATCH /api/updateUsername/{username}: Update a user based on given username.
+-DELETE /api/deleteUser/{username}: Delete a user (admin only).
 ##Authorization
- User Role (ROLE_USER): Allows basic user actions, such as updating their own profile.
- Admin Role (ROLE_ADMIN): Grants full access to user CRUD operations.
+ -User Role (ROLE_USER): Allows basic user actions, such as updating their own profile.
+ -Admin Role (ROLE_ADMIN): Grants full access to user CRUD operations.
