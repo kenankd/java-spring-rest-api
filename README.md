@@ -21,7 +21,7 @@ This Java project, built using IntelliJ IDEA, implements a RESTful CRUD API with
 
 1. **Clone the Repository:**
    ```shell
-   git clone https://github.com/yourusername/your-repo.git
+   git clone https://github.com/kenankd/java-spring-rest-api.git
    cd your-repo
    Build and Run:
   Open the project in IntelliJ IDEA or your preferred Java IDE.
