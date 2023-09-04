@@ -10,7 +10,7 @@ import rest.api.example.util.ApiResponse;
 
 import java.util.List;
 
-@RestController()
+@RestController
 @RequestMapping("/api")
 public class UserController {
     @Autowired
