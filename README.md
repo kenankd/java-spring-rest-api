@@ -27,7 +27,7 @@ This Java project, built using IntelliJ IDEA, implements a RESTful CRUD API with
   Open the project in IntelliJ IDEA or your preferred Java IDE.
   Configure your MySQL database settings in application.properties or application.yml.
   Build and run the project.
- 2. Usage
+2. **Usage:**
   Use Postman or a similar tool to interact with the API.
   Register a user using the /auth/register endpoint.
   Authenticate (login) using the /auth/authenticate endpoint. This will return a JWT token.
