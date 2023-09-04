@@ -23,10 +23,13 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(requests -> requests
-                .requestMatchers("/api/**")
-                .authenticated()
+                .requestMatchers("/api/deleteUser/**").hasAuthority("ADMIN")
+                .requestMatchers("/api/getUsers").hasAuthority("ADMIN")
+                .requestMatchers("/api/updateUser/**").authenticated()
+                .requestMatchers("/api/getUser/**").authenticated()
                 .requestMatchers("/auth/**")
                 .permitAll());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

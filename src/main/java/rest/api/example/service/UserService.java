@@ -18,18 +18,8 @@ public class UserService {
     public User saveUser(User user){
         return userRepository.save(user);
     }
-
-    public List<User> saveUsers(List<User> users){
-        return userRepository.saveAll(users);
-    }
-
     public List<User> getUsers(){
         return userRepository.findAll();
-    }
-    public User getUserById(Integer id){
-        Optional<User> user = userRepository.findById(id);
-        if(user.isEmpty()) return null;
-        return user.get();
     }
     public boolean deleteUser(Integer id){
         Optional<User> user = userRepository.findById(id);
@@ -41,6 +31,12 @@ public class UserService {
         catch(Exception e){
             return false;
         }
+    }
+
+    public User findByUsername(String id) {
+        Optional<User> user = userRepository.findByUsername(id);
+        if(user.isEmpty()) return null;
+        return user.get();
     }
     /*public ResponseEntity<User> updateUser(Integer id,User newUser){
         Optional<User> oldUser = userRepository.findById(id);

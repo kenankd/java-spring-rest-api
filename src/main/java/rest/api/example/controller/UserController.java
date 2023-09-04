@@ -3,6 +3,7 @@ package rest.api.example.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import rest.api.example.entity.User;
 import rest.api.example.service.UserService;
@@ -16,23 +17,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/saveUser")
-    public User saveUser(@RequestBody User user){
-        return userService.saveUser(user);
-    }
-
-    @PostMapping("/saveUsers")
-    public List<User> saveUsers(@RequestBody List<User> users){
-        return userService.saveUsers(users);
-    }
 
     @GetMapping("/getUsers")
+    //@PreAuthorize("hasRole('ADMIN')")
     public List<User> getUsers(){
         return userService.getUsers();
     }
     @GetMapping("/getUser/{id}")
-    public ResponseEntity<ApiResponse<User>> getUserById(@PathVariable Integer id){
-        User user = userService.getUserById(id);
+    public ResponseEntity<ApiResponse<User>> getUserByUsername(@PathVariable String id){
+        String a;
+        User user = userService.findByUsername(id);
         if(user==null){
             ApiResponse<User> response = new ApiResponse<>(false, "User not found.", null);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
@@ -41,21 +35,22 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
     @PatchMapping("/updateUser/{id}")
-    public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable Integer id,@RequestBody User newUser){
-        User user = userService.getUserById(id);
+    public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable String id,@RequestBody User newUser){
+        User user = userService.findByUsername(id);
         if(user==null){
             ApiResponse<User> response = new ApiResponse<>(false, "User not found.", null);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
         }
         try{
             newUser.setId(user.getId());
-            saveUser(newUser);
+            userService.saveUser(newUser);
             ApiResponse<User> response = new ApiResponse<>(true, "User updated.", newUser);
             return ResponseEntity.ok(response);
         }catch(Exception e){
             return ResponseEntity.internalServerError().body(new ApiResponse<User>(false,"Something went wrong, " + e.getMessage(),null));
         }
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id){
         boolean success = userService.deleteUser(id);
@@ -63,6 +58,6 @@ public class UserController {
             ApiResponse<User> response = new ApiResponse<>(false, "User not found.", null);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Succesfully deleted user from database");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Successfully deleted user from database");
     }
 }
