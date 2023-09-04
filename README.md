@@ -43,6 +43,6 @@ This Java project, built using IntelliJ IDEA, implements a RESTful CRUD API with
   GET /api/getUser/{username}: Get a user by username.
   PATCH /api/updateUsername/{username}: Update a user based on given username.
   DELETE /api/deleteUser/{username}: Delete a user (admin only).
-##Authorization
- - User Role (ROLE_USER): Allows basic user actions, such as updating their own profile.
- - Admin Role (ROLE_ADMIN): Grants full access to user CRUD operations.
+## Authorization
+ - **User Role (ROLE_USER)**: Allows basic user actions, such as updating their own profile.
+ - **Admin Role (ROLE_ADMIN)**: Grants full access to user CRUD operations.
